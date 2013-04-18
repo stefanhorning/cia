@@ -88,7 +88,15 @@ module Glass
         lambda do
           subject.fetch!("testkey")
         end.should raise_error(Glass::NoConfigurationError,"no configuration found for testkey")
-      end      
+      end
+
+      it 'should not raise an error if the result is not nil' do
+        subject.should_receive(:fetch).with("testkey").and_return("123")
+        lambda do
+          subject.fetch!("testkey")
+        end.should_not raise_error(Glass::NoConfigurationError,"no configuration found for testkey")
+      end
+       
 
     end
   end

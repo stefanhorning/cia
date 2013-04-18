@@ -5,7 +5,8 @@ module Glass
 
     def fetch!(key)
       val = fetch(key)
-      raise NoConfigurationError.new("no configuration found for #{key}")
+      raise NoConfigurationError.new("no configuration found for #{key}") unless val
+      val
     end
 
     def fetch(key)
