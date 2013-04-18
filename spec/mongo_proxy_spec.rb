@@ -1,13 +1,19 @@
 require 'spec_helper' 
 
-describe Glass::MongoConfig do
+describe Glass::MongoProxy do
 
    let(:subject){
-     mg = Glass::MongoConfig.new
+     
+     
      collection = mock
      collection.stub(:find_one)
+     
      config = mock
      config.stub(:host).and_return("anothertesthost")
+
+     mg = Glass::MongoProxy.new
+     mg.stub(:connect!)
+     mg.stub(:close)
      mg.stub(:config).and_return(config)
      mg.stub(:collection).and_return(collection)
      mg.stub(:roles).and_return(["anothertestrole"])
@@ -48,7 +54,7 @@ describe Glass::MongoConfig do
     
     let(:subject){
    
-       man = Glass::MongoConfig.new.manager
+       man = Glass::MongoProxy.new.manager
        man.mongo_config.stub(:collection).and_return(mock)
        man
      }

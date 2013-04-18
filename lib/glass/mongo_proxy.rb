@@ -1,14 +1,14 @@
 require'mongo'
 
 module Glass
-  class MongoConfig < Glass::Base
+  class MongoProxy < Glass::Base
     
     def db
-      @config.db
+      connection[@config.db]
     end
 
     def collection
-      @config.collection
+      db[@config.collection]
     end
 
     def roles
@@ -23,33 +23,21 @@ module Glass
       collection.find_one("host" => {"$exists" => false}, "role" =>  role, key => {"$exists" => true})
     end
 
-    def host_key(key)
-      collection.find_one("host" => config.host, "role" => {"$exists" => false}, key => {"$exists" => true})
+    def host_key(host, key)
+      collection.find_one("host" => host, "role" => {"$exists" => false}, key => {"$exists" => true})
     end
 
-    def fetch(key)
-      #host specific
-      obj = host_key(key)
-      return obj[key] if obj
-      
-      #role specific
-      roles.each do |role|
-        obj = role_key(role, key)
-        return obj[key] if obj
-      end
-
-      #global
-      obj = global_key(key)
-      return obj[key]  if obj
-
-    end
-
+    
     def connect!
-      Mongo::MongoClient.new(config.connection_hash)
+      @connection = Mongo::MongoClient.send(:new, config.connection[:host], config.connection[:port])
+    end
+
+    def close
+      @connection.close
     end
 
     def connection
-      @connection ||= connect!
+      @connection
     end
 
     def manager

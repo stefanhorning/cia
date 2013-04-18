@@ -1,1 +1,7 @@
-:connection: 123
+:connection: 
+  :host: test.testing.co.uk
+:roles:
+  - "testrole1"
+  - "testrole2"
+:db: "turboseeder_config"
+:collection: "config"

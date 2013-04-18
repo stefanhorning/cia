@@ -1,17 +1,23 @@
 require 'facter'
+require 'forwardable'
 
 module Glass
   class Config
-
+    extend Forwardable
+   
     PATHS = ['config/glass.yaml']
 
-    attr_accessor :path, :data
+    attr_accessor :path, :data, :proxy
 
-    def initialize(opts={})
+    def initialize(proxy, opts={})
+      self.proxy = proxy
+      self.proxy.config = self
       self.path = opts[:path]
+      load!
     end
 
     def load!
+
       if path
         self.data = YAML.load_file(path)
       else
@@ -38,6 +44,10 @@ module Glass
     def host
       Facter.hostname
     end
+
+    def_delegator :@proxy, :fetch
+    def_delegator :@proxy, :fetch!
+
 
   end
 end
