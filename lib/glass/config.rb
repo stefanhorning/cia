@@ -9,9 +9,10 @@ module Glass
 
     attr_accessor :path, :data, :proxy
 
-    def initialize(proxy, opts={})
-      self.proxy = proxy
-      self.proxy.config = self
+    def initialize(opts={})
+      self.proxy = opts[:proxy]
+      self.proxy = Glass::Proxy::Base.get(self.proxy) if self.proxy.is_a?(Symbol)
+      self.proxy.config = self if self.proxy
       self.path = opts[:path]
       load!
     end

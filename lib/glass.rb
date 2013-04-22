@@ -2,8 +2,8 @@ require "glass/version"
 
 require 'glass/errors'
 require 'glass/config'
-require 'glass/base'
-require 'glass/mongo_proxy'
+require 'glass/proxy/base'
+require 'glass/proxy/mongo'
 
 
 module Glass
