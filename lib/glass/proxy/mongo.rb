@@ -7,20 +7,16 @@ module Glass
       def db
         connection[config.db]
       end
-
-      def roles
-        config.roles
-      end
-
+      
       def global_obj(key)
         db["global"].find_one("_id" => key)
       end
 
-      def role_obj(role, key)
+      def role_obj(role)
         db["roles"].find_one("_id" => role)
       end
 
-      def host_obj(host, key)
+      def host_obj(host)
         db["hosts"].find_one("_id" => host)
       end
 
@@ -29,11 +25,11 @@ module Glass
       end
 
       def role_value(role, key)
-        process role_obj(role, key), key
+        process role_obj(role), key
       end
 
       def host_value(host, key)
-        process host_obj(host, key), key
+        process host_obj(host), key
       end
 
       def connect!
@@ -80,12 +76,12 @@ module Glass
         end
 
         def set_role_value(role, key, value)
-          obj = proxy.role_obj(role, key)
+          obj = proxy.role_obj(role)
           save_or_create_object(object: obj, collection: "roles", id: role, data: {key => value}) 
         end
 
         def set_host_value(host, key, value)
-          obj = proxy.host_obj(host, key)
+          obj = proxy.host_obj(host)
           save_or_create_object(object: obj, collection: "hosts", id: host, data: {key => value}) 
         end
 

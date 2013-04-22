@@ -1,8 +1,16 @@
+require 'logger'
+
 module Glass
   module Proxy
     class Base
 
       attr_accessor :config
+
+      LOG = Logger.new(File.join("log","glass-config.log"))
+
+      def roles
+        host_value(config.host, "roles") || []  
+      end
 
       def fetch!(key)
         val = fetch(key)
@@ -16,23 +24,32 @@ module Glass
 
         #host specific
         obj = host_value(config.host, key)
-        return obj if obj
-        
+        if obj
+          LOG.info("host_key: #{config.host}:#{key} = #{obj}")
+          return obj 
+        end
+  
         #role specific
         roles.each do |role|
           obj = role_value(role, key)
-          return obj if obj
+          if obj
+            LOG.info("role_key: #{role}:#{key} = #{obj}")
+            return obj 
+          end
         end
         
         #global
         obj = global_value(key)
-        return obj if obj
-
+        if obj
+          LOG.info("global_key: #{key} = #{obj}")
+          return obj 
+        end
+ 
         close
 
       end
 
-      def self.get(sym)
+      def self.from_sym(sym)
         case sym
         when :mongo
           return Glass::Proxy::Mongo.new
