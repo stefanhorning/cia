@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'bundler/setup'
+require 'glass'
+
+host = ARGV.shift
+roles = ARGV
+
+config = Glass::Config.new(:proxy => :mongo)
+
+config.proxy.manager.set_host_value(host, "roles", roles)
+

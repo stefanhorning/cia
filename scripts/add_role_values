@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'bundler/setup'
+require 'glass'
+
+require_relative 'values'
+
+role = ARGV.shift
+
+raise "role [#{role}] is not valid" unless role =~ /^[a-z0-9]+$/
+
+values = ARGV
+
+config = Glass::Config.new(:proxy => :mongo)
+
+split(values).each do |key, value|
+  config.proxy.manager.set_role_value(role, key, value)
+end
+
