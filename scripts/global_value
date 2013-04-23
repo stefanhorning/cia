@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'bundler/setup'
+require 'glass'
+
+require_relative 'utils'
+
+key = ARGV.shift
+
+config = Glass::Config.new(:proxy => :mongo)
+
+puts "key is #{key}"
+
+config.proxy.manager.set_global_value(key, values(ARGV))
+

@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'bundler/setup'
+require 'glass'
+
+require_relative 'utils'
+
+host = ARGV.shift
+
+raise "hostname [#{host}] is not valid" unless hostname_ok?(host)
+
+key = ARGV.shift
+
+config = Glass::Config.new(:proxy => :mongo)
+
+puts "host is #{host}"
+puts "key is #{key}"
+
+config.proxy.manager.set_host_value(host, key, values(ARGV))
+
