@@ -17,6 +17,5 @@ config = Glass::Config.new(:proxy => :mongo)
 puts "role is #{role}"
 puts "key is #{key}"
 
-
 config.proxy.manager.set_role_value(role, key, values(ARGV))
 
