@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'bundler/setup'
+require 'glass'
+
+host = ARGV.shift
+
+config = Glass::Config.new(:proxy => :mongo)
+
+Glass::Proxy::Base::LOG = Logger.new(STDOUT)
+
+puts ""
+puts ""
+
+config.fetch(ARGV.first).inspect
