@@ -2,13 +2,13 @@
 
 require 'rubygems'
 require 'bundler/setup'
-require 'glass'
+require 'cia'
 
 host = ARGV.shift
 
-config = Glass::Config.new(:proxy => :mongo)
+config = Cia::Config.new(:proxy => :mongo)
 
-Glass::Proxy::Base::LOG = Logger.new(STDOUT)
+Cia::Proxy::Base::LOG = Logger.new(STDOUT)
 
 puts ""
 puts ""

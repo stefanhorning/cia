@@ -2,12 +2,12 @@
 
 require 'rubygems'
 require 'bundler/setup'
-require 'glass'
+require 'cia'
 
 host = ARGV.shift
 roles = ARGV
 
-config = Glass::Config.new(:proxy => :mongo)
+config = Cia::Config.new(:proxy => :mongo)
 
 config.proxy.manager.set_host_value(host, "roles", roles)
 

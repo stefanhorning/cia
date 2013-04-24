@@ -1,11 +1,11 @@
 # -*- encoding: utf-8 -*-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'glass/version'
+require 'cia/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "glass"
-  gem.version       = Glass::VERSION
+  gem.version       = Cia::VERSION
   gem.authors       = ["stevecreedon"]
   gem.email         = ["steve@creedon.me"]
   gem.description   = %q{TODO: Write a gem description}

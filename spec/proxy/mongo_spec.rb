@@ -1,6 +1,6 @@
 require 'spec_helper' 
 
-describe Glass::Proxy::Mongo do
+describe Cia::Proxy::Mongo do
 
   def mock_mongo!
 
@@ -30,7 +30,7 @@ describe Glass::Proxy::Mongo do
      config.stub(:connection).and_return(:host => 'mockmongo')
      config.stub(:db).and_return("config_db")
 
-     mg = Glass::Proxy::Mongo.new
+     mg = Cia::Proxy::Mongo.new
      mg.stub(:config).and_return(config)
      mg.stub(:roles).and_return(["anothertestrole"])
      

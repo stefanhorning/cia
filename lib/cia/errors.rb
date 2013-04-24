@@ -1,4 +1,4 @@
-module Glass
+module Cia
 
   class NoConfigurationError < RuntimeError; end
 

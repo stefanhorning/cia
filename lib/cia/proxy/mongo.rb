@@ -1,6 +1,6 @@
 require'mongo'
 
-module Glass
+module Cia
   module Proxy
     class Mongo < Base
       
@@ -50,17 +50,31 @@ module Glass
 
       private
 
+     
       def process(result, identifier="value")
         return nil unless result
         val = result[identifier]
-        val = symbolize(val) if val.is_a?(Hash)
+        val = symbolize_keys(val.to_hash) if val.is_a?(Hash)
         val
       end
 
-      def symbolize(val)
-        val.each_with_object({}){|(k,v), h| h[k.to_sym] = v}
+     
+      def symbolize_keys(hash)
+        hash.inject({}){|result, (key, value)|
+          new_key = case key
+                    when String then key.to_sym
+                    else key
+                    end
+          new_value = case value
+                    when Hash then symbolize_keys(value)
+                    else value
+                    end
+          result[new_key] = new_value
+          result
+        }
       end
 
+      
       class Manager
 
         attr_accessor :proxy

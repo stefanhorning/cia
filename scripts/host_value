@@ -2,7 +2,7 @@
 
 require 'rubygems'
 require 'bundler/setup'
-require 'glass'
+require 'cia'
 
 require_relative 'utils'
 
@@ -12,7 +12,7 @@ raise "hostname [#{host}] is not valid" unless hostname_ok?(host)
 
 key = ARGV.shift
 
-config = Glass::Config.new(:proxy => :mongo)
+config = Cia::Config.new(:proxy => :mongo)
 
 puts "host is #{host}"
 puts "key is #{key}"

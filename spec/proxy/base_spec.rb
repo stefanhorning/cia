@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module Glass
+module Cia
   module Proxy
     describe Base do
 
@@ -87,14 +87,14 @@ module Glass
           subject.should_receive(:fetch).with("testkey").and_return(nil)
           lambda do
             subject.fetch!("testkey")
-          end.should raise_error(Glass::NoConfigurationError,"no configuration found for testkey")
+          end.should raise_error(Cia::NoConfigurationError,"no configuration found for testkey")
         end
 
         it 'should not raise an error if the result is not nil' do
           subject.should_receive(:fetch).with("testkey").and_return("123")
           lambda do
             subject.fetch!("testkey")
-          end.should_not raise_error(Glass::NoConfigurationError,"no configuration found for testkey")
+          end.should_not raise_error(Cia::NoConfigurationError,"no configuration found for testkey")
         end
          
 

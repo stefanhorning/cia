@@ -1,12 +1,12 @@
 require 'logger'
 
-module Glass
+module Cia
   module Proxy
     class Base
 
       attr_accessor :config
 
-      LOG = Logger.new(File.join("log","glass-config.log"))
+      LOG = Logger.new(File.join("log","cia-config.log"))
 
       def roles
         host_value(config.host, "roles") || []  
@@ -52,7 +52,7 @@ module Glass
       def self.from_sym(sym)
         case sym
         when :mongo
-          return Glass::Proxy::Mongo.new
+          return Cia::Proxy::Mongo.new
         else
           raise "unknown proxy #{sym}"
         end

@@ -1,17 +1,17 @@
 require 'facter'
 require 'forwardable'
 
-module Glass
+module Cia
   class Config
     extend Forwardable
    
-    PATHS = ['config/glass.yaml']
+    PATHS = ['config/cia.yaml']
 
     attr_accessor :path, :data, :proxy
 
     def initialize(opts={})
       self.proxy = opts[:proxy]
-      self.proxy = Glass::Proxy::Base.from_sym(self.proxy) if self.proxy.is_a?(Symbol)
+      self.proxy = Cia::Proxy::Base.from_sym(self.proxy) if self.proxy.is_a?(Symbol)
       self.proxy.config = self if self.proxy
       self.path = opts[:path]
       load!

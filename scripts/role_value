@@ -2,7 +2,7 @@
 
 require 'rubygems'
 require 'bundler/setup'
-require 'glass'
+require 'cia'
 
 require_relative 'utils'
 
@@ -12,7 +12,7 @@ raise "role [#{role}] is not valid" unless role =~ /^[a-z0-9]+$/
 
 key = ARGV.shift
 
-config = Glass::Config.new(:proxy => :mongo)
+config = Cia::Config.new(:proxy => :mongo)
 
 puts "role is #{role}"
 puts "key is #{key}"

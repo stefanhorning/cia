@@ -2,13 +2,13 @@
 
 require 'rubygems'
 require 'bundler/setup'
-require 'glass'
+require 'cia'
 
 require_relative 'utils'
 
 key = ARGV.shift
 
-config = Glass::Config.new(:proxy => :mongo)
+config = Cia::Config.new(:proxy => :mongo)
 
 puts "global value"
 puts "key is #{key}"
