@@ -1,4 +1,4 @@
-# Cia - Central Information Agent
+# CIA - Central Information Agent
 
 TODO: Write a gem description
 
