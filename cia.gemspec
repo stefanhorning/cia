@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'cia/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = "glass"
+  gem.name          = "cia"
   gem.version       = Cia::VERSION
   gem.authors       = ["stevecreedon"]
   gem.email         = ["steve@creedon.me"]
