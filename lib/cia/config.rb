@@ -48,10 +48,7 @@ module Cia
     end
 
     def env
-      @env ||= lambda do |config|
-                 e = (config._env || ENV['RACK_ENV'] || ENV['RAILS_ENV'])
-                 e ? e.to_sym : nil        
-               end.call(self)
+      @env ||= (self._env || ENV['RACK_ENV'] || ENV['RAILS_ENV'] || 'development').to_sym
     end
 
     def_delegator :@proxy, :fetch
@@ -60,7 +57,6 @@ module Cia
     private 
 
     def from_yaml(path)
-      raise "no environment found" unless env
       _data = YAML.load_file(path)[env]
       raise "no config data in file #{path} for environment #{env}" unless _data
       _data
