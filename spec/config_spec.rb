@@ -10,6 +10,10 @@ describe Cia::Config do
     end
   end
 
+  before(:each) do
+    ENV.stub(:[]).with('RACK_ENV').and_return('test')
+  end
+
   context 'loading' do
 
     it 'should load the yaml file specified in the path' do
@@ -17,12 +21,11 @@ describe Cia::Config do
       config.path = 'spec/fixtures/cia.yaml'
       config.load!
       config.connection.should == {:host=>"test.testing.co.uk"}
-      config.roles.should == ["testrole1", "testrole2"] 
     end
 
     it 'should load a yaml file from a default location if it exists' do
       File.stub(:exists?).with('config/cia.yaml').and_return(true)
-      YAML.stub(:load_file).with('config/cia.yaml').and_return({a: 1})
+      YAML.stub(:load_file).with('config/cia.yaml').and_return(test: {a: 1})
       config = Cia::Config.new(:proxy => MockProxy.new)
       config.load!
       config.data.should == {a: 1} 
