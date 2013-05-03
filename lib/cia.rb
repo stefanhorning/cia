@@ -5,6 +5,8 @@ require 'cia/config'
 require 'cia/proxy/base'
 require 'cia/proxy/mongo'
 
+require 'cia/tasks'
+
 
 module Cia
   # Your code goes here...
