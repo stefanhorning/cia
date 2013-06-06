@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Cia::VERSION
   gem.authors       = ["stevecreedon"]
   gem.email         = ["steve@creedon.me"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{CIA gem}
+  gem.summary       = %q{centralized config}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
