@@ -6,7 +6,7 @@ module Cia
 
       attr_accessor :config
 
-      FileUtils.mkdir_p(File.dirname(log)) unless File.exists?(File.dirname(log))
+      FileUtils.mkdir_p(File.dirname('log')) unless File.exists?(File.dirname('log'))
 
       LOG = Logger.new(File.join("log","cia-config.log"))
 
