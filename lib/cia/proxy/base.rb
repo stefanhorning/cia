@@ -6,7 +6,7 @@ module Cia
 
       attr_accessor :config
 
-      LOG = Logger.new(File.join("log","cia-config.log"))
+      #LOG = Logger.new(File.join("..","..","..","..","..","log","cia-config.log"))
 
       def roles
         host_value(config.host, "roles") || []  
@@ -25,7 +25,7 @@ module Cia
         #host specific
         obj = host_value(config.host, key)
         if obj
-          LOG.info("host_key: #{config.host}:#{key} = #{obj}")
+          #LOG.info("host_key: #{config.host}:#{key} = #{obj}")
           return obj 
         end
   
@@ -33,7 +33,7 @@ module Cia
         roles.each do |role|
           obj = role_value(role, key)
           if obj
-            LOG.info("role_key: #{role}:#{key} = #{obj}")
+            #LOG.info("role_key: #{role}:#{key} = #{obj}")
             return obj 
           end
         end
@@ -41,7 +41,7 @@ module Cia
         #global
         obj = global_value(key)
         if obj
-          LOG.info("global_key: #{key} = #{obj}")
+          #LOG.info("global_key: #{key} = #{obj}")
           return obj 
         end
  
