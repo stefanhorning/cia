@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Cia::VERSION
   gem.authors       = ["stevecreedon"]
   gem.email         = ["steve@creedon.me"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{CIA gem}
+  gem.summary       = %q{centralized config}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
@@ -18,8 +18,9 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency 'facter'
-  gem.add_runtime_dependency 'mongo'
-  gem.add_runtime_dependency 'rake'
+  gem.add_dependency 'mongo'
+  gem.add_dependency 'bson_ext'
+  gem.add_dependency 'rake'
 
 
   gem.add_development_dependency 'rspec'

@@ -6,9 +6,7 @@ module Cia
 
       attr_accessor :config
 
-      #LOG = Logger.new(File.join("..","..","..","..","..","log","cia-config.log"))
-
-      def roles
+     def roles
         host_value(config.host, "roles") || []  
       end
 
