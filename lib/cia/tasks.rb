@@ -1,9 +1,39 @@
 require 'rake'
 require 'cia'
 require 'json'
+require 'yaml'
+
+CONFIG_PATH = 'config/cia.yaml'
+DEV_DB = "turboseeder_dev_config"
+DEV_HOST = "localhost"
+DEV_VALUE = {host: DEV_HOST, db: DEV_DB}
+DEV_CONFIG = {development: {connection: {host: DEV_HOST}, db: DEV_DB}} 
 
 namespace :cia do
   namespace :mongo do
+
+    desc 'sets up a default cia config file and adds the system global value to cia'
+    task :setup, [:system] do |t, args|
+      Rake::Task["cia:mongo:config"].invoke
+      Rake::Task["cia:mongo:add_development_system"].invoke args[:system]
+    end
+
+    desc 'creates a default development config file configured for a local mongo database'
+    task :config do |t, args|
+      if File.exists?(CONFIG_PATH)
+        puts "a config/cia.yaml already exists, overwrite ? [Y] for yes"
+        write = (STDIN.gets.chomp.strip == 'Y')
+      else
+        write = true
+      end
+      File.open(CONFIG_PATH, 'w') { |file| file.write(YAML.dump(DEV_CONFIG)) } if write
+    end
+
+    desc 'adds a localhost cia configuration for the named system'
+    task :add_development_system, [:system] do |t, args|
+      config = Cia::Config.new(:proxy => :mongo)
+      config.proxy.manager.set_global_value(args[:system], DEV_VALUE)
+    end
 
     desc 'saves the global value to the config mongodb specified in the RAILS_ENV environment'
     task :set_global_value, [:key, :value] do |t, args|
