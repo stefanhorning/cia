@@ -12,7 +12,7 @@ module Cia
         b.stub(:global_value)
         b.stub(:role_value)
         b.stub(:roles).and_return(["testrole1", "testrole2"])
-        config = mock
+        config = double
         config.stub(:host => 'testhost')
         b.config = config
         b

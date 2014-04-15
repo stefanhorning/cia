@@ -4,16 +4,16 @@ describe Cia::Proxy::Mongo do
 
   def mock_mongo!
 
-    hosts_collection = mock
+    hosts_collection = double
     hosts_collection.stub(:find_one)
 
-    global_collection = mock
+    global_collection = double
     global_collection.stub(:find_one)
 
-    roles_collection = mock
+    roles_collection = double
     roles_collection.stub(:find_one)
 
-    mc = mock
+    mc = double
     mc.stub(:close)
     mc.stub(:[]).with("config_db").and_return({"hosts" => hosts_collection, "roles" => roles_collection, "global" => global_collection})
     ::Mongo::MongoClient.stub(:new).and_return(mc)
@@ -25,7 +25,7 @@ describe Cia::Proxy::Mongo do
 
      mock_mongo!
      
-     config = mock
+     config = double
      config.stub(:host).and_return("anothertesthost")
      config.stub(:connection).and_return(:host => 'mockmongo')
      config.stub(:db).and_return("config_db")
