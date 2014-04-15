@@ -48,7 +48,7 @@ module Cia
 
     def config_path
       if path
-        path
+        path if File.exists?(path)
       else
         PATHS.detect do |path|
           File.exists?(path)
