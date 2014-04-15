@@ -18,22 +18,12 @@ module Cia
       load!
     end
 
-    def load!
+    def configured?
+      self.data
+    end
 
-      if path
-        self.data = from_yaml(path) 
-      else
-        PATHS.each do |path|
-          self.data = from_yaml(path) if File.exists?(path)
-        end
-      end
-#puts self.data
-      if path
-        raise "cannot find config at #{path}" unless self.data
-      else
-        raise "cannot find config in any of the locations #{PATHS.join(", ")}" unless self.data
-      end
-      
+    def load!
+      self.data = from_yaml(config_path) if config_path
     end
 
     def method_missing(mefod, *args)
@@ -56,10 +46,18 @@ module Cia
 
     private 
 
+    def config_path
+      if path
+        path
+      else
+        PATHS.detect do |path|
+          File.exists?(path)
+        end
+      end
+    end
+
     def from_yaml(path)
-      _data = YAML.load_file(path)[env]
-      raise "no config data in file #{path} for environment #{env}" unless _data
-      _data
+      YAML.load_file(path)[env]
     end
 
 
