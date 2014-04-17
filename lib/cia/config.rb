@@ -23,7 +23,11 @@ module Cia
     end
 
     def load!
-      self.data = from_yaml(config_path) if config_path
+      if config_path
+        self.data = from_yaml(config_path)
+      else
+        raise "Error: No cia.yml file detected, please run cia-setup-dev passing the name of your system (...and don't forget to start your mongo)"
+      end
     end
 
     def method_missing(mefod, *args)
