@@ -3,11 +3,6 @@ require 'cia'
 require 'json'
 require 'yaml'
 
-CONFIG_PATH = 'config/cia.yaml'
-DEV_DB = "turboseeder_dev_config"
-DEV_HOST = "localhost"
-DEV_VALUE = {host: DEV_HOST, db: DEV_DB}
-DEV_CONFIG = {development: {connection: {host: DEV_HOST}, db: DEV_DB}} 
 
 namespace :cia do
   namespace :mongo do
