@@ -2,6 +2,7 @@
 
 require 'cia'
 require 'yaml'
+require 'facter'
 
 unless ARGV.first
   puts "please provide a system name e.g. 'pulp' or 'rrr' that this configuration is for"
@@ -24,5 +25,6 @@ end
 File.open(CONFIG_PATH, 'w') { |file| file.write(YAML.dump(DEV_CONFIG)) } if write
 
 config = Cia::Config.new(:proxy => :mongo)
+puts config.proxy.inspect
 config.proxy.manager.set_global_value(ARGV.first, DEV_VALUE)
 
