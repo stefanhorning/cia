@@ -2,21 +2,16 @@
 
 require 'cia'
 require 'yaml'
-require 'facter'
-
-unless ARGV.first
-  puts "please provide a system name e.g. 'pulp' or 'rrr' that this configuration is for"
-  exit -1
-end
 
 CONFIG_PATH = 'config/cia.yaml'
-DEV_DB = "turboseeder_dev_config"
+DEV_DB = "turboseeder_dev"
+DEV_CONFIG_DB = "turboseeder_dev_config"
 DEV_HOST = "localhost"
 DEV_VALUE = {host: DEV_HOST, db: DEV_DB}
-DEV_CONFIG = {development: {connection: {host: DEV_HOST}, db: DEV_DB}}
+DEV_CONFIG = {development: {connection: {host: DEV_HOST}, db: DEV_CONFIG_DB}}
 
 if File.exists?(CONFIG_PATH)
-  puts "a config/cia.yaml already exists, overwrite ? [Y] for yes"
+  puts "config/cia.yaml exists. Overwrite? [Y]"
   write = (STDIN.gets.chomp.strip == 'Y')
 else
   write = true
@@ -25,6 +20,6 @@ end
 File.open(CONFIG_PATH, 'w') { |file| file.write(YAML.dump(DEV_CONFIG)) } if write
 
 config = Cia::Config.new(:proxy => :mongo)
-puts config.proxy.inspect
-config.proxy.manager.set_global_value(ARGV.first, DEV_VALUE)
 
+config.proxy.manager.set_global_value("mongo-host", DEV_VALUE)
+config.proxy.manager.set_global_value("rabbitmq-host", DEV_VALUE)
